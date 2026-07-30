@@ -125,7 +125,7 @@ export const MOCK_DATASET: MockDataSet = {
     {
       id: 'r1',
       severity: 'critical',
-      title: '[Critical] 주민등록번호 처리 법적 근거 미비',
+      title: '[위험] 주민등록번호 처리 법적 근거 미비',
       description:
         '주민등록번호(고유식별정보)가 신청서에서 감지되었습니다. 「개인정보 보호법」 제24조에 따라 주민등록번호 처리는 법령에서 구체적으로 허용하는 경우에만 가능합니다. 현재 동의서에 명시된 법적 근거(사회복지사업법 §33의3)만으로는 충분하지 않을 수 있습니다.',
       action:

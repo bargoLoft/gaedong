@@ -24,7 +24,7 @@ const SEVERITY_CONFIG: Record<RiskSeverity, {
 }> = {
   critical: {
     icon: AlertTriangle,
-    label: 'Critical Warning',
+    label: '위험',
     cardBg: 'bg-red-950/30',
     border: 'border-red-800/40',
     activeBorder: 'border-red-500',
@@ -36,7 +36,7 @@ const SEVERITY_CONFIG: Record<RiskSeverity, {
   },
   recommendation: {
     icon: Lightbulb,
-    label: 'Recommendation',
+    label: '권장',
     cardBg: 'bg-amber-950/20',
     border: 'border-amber-800/30',
     activeBorder: 'border-amber-500',
@@ -48,7 +48,7 @@ const SEVERITY_CONFIG: Record<RiskSeverity, {
   },
   pass: {
     icon: CheckCircle2,
-    label: 'Compliance Pass',
+    label: '적합',
     cardBg: 'bg-emerald-950/20',
     border: 'border-emerald-800/30',
     activeBorder: 'border-emerald-500',

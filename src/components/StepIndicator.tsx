@@ -8,9 +8,9 @@ interface StepIndicatorProps {
 }
 
 const STEPS = [
-  { id: 1 as AppStep, label: '문서 업로드', sublabel: 'PDF Upload', icon: Upload },
-  { id: 2 as AppStep, label: '에이전트 분석', sublabel: 'AI Analysis', icon: Cpu },
-  { id: 3 as AppStep, label: '결과 대시보드', sublabel: 'Results', icon: LayoutDashboard },
+  { id: 1 as AppStep, label: '문서 업로드', icon: Upload },
+  { id: 2 as AppStep, label: '에이전트 분석', icon: Cpu },
+  { id: 3 as AppStep, label: '결과 대시보드', icon: LayoutDashboard },
 ];
 
 export default function StepIndicator({ currentStep }: StepIndicatorProps) {
@@ -60,13 +60,6 @@ export default function StepIndicator({ currentStep }: StepIndicatorProps) {
                     }`}
                   >
                     {step.label}
-                  </p>
-                  <p
-                    className={`text-[10px] leading-tight mt-0.5 ${
-                      isActive ? 'text-indigo-300' : 'text-slate-600'
-                    }`}
-                  >
-                    {step.sublabel}
                   </p>
                 </div>
               </div>

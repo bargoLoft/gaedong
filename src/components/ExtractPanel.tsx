@@ -10,7 +10,6 @@ interface ExtractPanelProps {
 
 const CATEGORY_CONFIG: Record<DataCategory, {
   label: string;
-  sublabel: string;
   badgeBg: string;
   badgeText: string;
   borderColor: string;
@@ -19,7 +18,6 @@ const CATEGORY_CONFIG: Record<DataCategory, {
 }> = {
   general: {
     label: '일반 개인정보',
-    sublabel: 'General Data',
     badgeBg: 'bg-blue-500/15',
     badgeText: 'text-blue-300',
     borderColor: 'border-blue-500/20',
@@ -28,7 +26,6 @@ const CATEGORY_CONFIG: Record<DataCategory, {
   },
   sensitive: {
     label: '민감정보',
-    sublabel: 'Sensitive Data',
     badgeBg: 'bg-orange-500/15',
     badgeText: 'text-orange-300',
     borderColor: 'border-orange-500/20',
@@ -37,7 +34,6 @@ const CATEGORY_CONFIG: Record<DataCategory, {
   },
   unique_id: {
     label: '고유식별정보',
-    sublabel: 'Unique Identifier',
     badgeBg: 'bg-red-500/15',
     badgeText: 'text-red-300',
     borderColor: 'border-red-500/20',
@@ -66,7 +62,7 @@ export default function ExtractPanel({ items }: ExtractPanelProps) {
         </div>
         <div>
           <h3 className="text-sm font-semibold text-white">추출 데이터 & 스마트 태깅</h3>
-          <p className="text-[10px] text-slate-500">Extract Agent Output</p>
+          <p className="text-[10px] text-slate-500">추출 에이전트 결과</p>
         </div>
         <div className="ml-auto text-xs text-slate-500 bg-slate-800 px-2.5 py-1 rounded-full">
           총 {items.length}개 항목
@@ -91,7 +87,7 @@ export default function ExtractPanel({ items }: ExtractPanelProps) {
                 <span className={`text-xs font-semibold ${config.badgeText}`}>
                   {config.label}
                 </span>
-                <span className="text-[10px] text-slate-500 ml-0.5">({config.sublabel})</span>
+                <span className="text-[10px] text-slate-500 ml-0.5"></span>
                 <span className={`ml-auto text-[10px] px-1.5 py-0.5 rounded-full ${config.badgeBg} ${config.badgeText} font-medium`}>
                   {catItems.length}
                 </span>

@@ -40,7 +40,7 @@ function ComplianceScoreRing({ score }: { score: number }) {
           <span className="text-[9px] text-slate-400">/100</span>
         </div>
       </div>
-      <p className="text-[11px] text-slate-400 font-medium">Compliance Score</p>
+      <p className="text-[11px] text-slate-400 font-medium">준수 점수</p>
     </div>
   );
 }
@@ -63,7 +63,7 @@ export default function AuditPanel({ alerts, complianceScore, highlightedClauseI
         </div>
         <div>
           <h3 className="text-sm font-semibold text-white">법적 감사 & 위험 분석</h3>
-          <p className="text-[10px] text-slate-500">Audit Agent Output</p>
+          <p className="text-[10px] text-slate-500">감사 에이전트 결과</p>
         </div>
       </div>
 

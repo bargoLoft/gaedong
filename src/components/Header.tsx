@@ -20,7 +20,7 @@ export default function Header() {
                 Con<span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-emerald-400">Sentient</span>
               </h1>
               <p className="text-[10px] text-slate-400 leading-none font-medium tracking-wide">
-                AI Privacy Compliance OS
+                비영리 개인정보 컴플라이언스
               </p>
             </div>
           </div>
@@ -28,14 +28,14 @@ export default function Header() {
           {/* Center tagline — hidden on mobile */}
           <div className="hidden md:flex items-center gap-2 text-xs text-slate-400">
             <Sparkles className="w-3.5 h-3.5 text-indigo-400" />
-            <span>Multi-Agent · PIPA Compliant · Non-Profit Ready</span>
+            <span>멀티 에이전트 · 개인정보보호법 준수 · 비영리 특화</span>
           </div>
 
           {/* Status badge */}
           <div className="flex items-center gap-2">
             <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-xs text-emerald-400 font-medium">
               <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-              System Online
+              정상 운영 중
             </div>
           </div>
         </div>

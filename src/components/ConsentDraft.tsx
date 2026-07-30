@@ -37,7 +37,7 @@ export default function ConsentDraft({ clauses, highlightedClauseId }: ConsentDr
         </div>
         <div>
           <h3 className="text-sm font-semibold text-white">생성된 동의서 초안</h3>
-          <p className="text-[10px] text-slate-500">Generation Agent Output</p>
+          <p className="text-[10px] text-slate-500">생성 에이전트 결과</p>
         </div>
       </div>
 
@@ -52,7 +52,7 @@ export default function ConsentDraft({ clauses, highlightedClauseId }: ConsentDr
             <h2 className="text-lg font-bold text-slate-800 consent-document">
               개인정보 수집·이용 동의서
             </h2>
-            <p className="text-xs text-slate-500">Personal Information Collection & Use Consent Form</p>
+            <p className="text-xs text-slate-500">개인정보 수집·이용 동의서</p>
             <div className="inline-flex items-center gap-1.5 mt-2 px-3 py-1 rounded-full bg-indigo-50 border border-indigo-100 text-[10px] text-indigo-600 font-medium">
               <AlertTriangle className="w-3 h-3" />
               AI 생성 초안 — 법무 검토 필요

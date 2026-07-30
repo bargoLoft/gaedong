@@ -59,7 +59,7 @@ export default function FileUpload({ onStart }: FileUploadProps) {
       <div className="text-center space-y-3">
         <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-300 text-xs font-medium">
           <Sparkles className="w-3.5 h-3.5" />
-          Multi-Agent AI Pipeline
+          AI 에이전트 파이프라인
         </div>
         <h2 className="text-3xl sm:text-4xl font-bold text-white leading-tight">
           복지 신청서에서{' '}
