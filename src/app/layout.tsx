@@ -9,23 +9,21 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: 'ConSentient — AI-Powered Privacy Compliance OS for Non-Profits',
+  title: '개동췤 — 비영리 개인정보 동의서 자동 생성',
   description:
-    'Transform complex welfare PDFs into legally verified personal data consent forms in seconds. ConSentient uses a multi-agent AI pipeline to ensure full compliance with the Korean Personal Information Protection Act.',
+    '복지급여 신청 PDF를 업로드하면 AI 에이전트가 개인정보보호법 준수 동의서를 자동 생성하고 법적 위험을 감사합니다.',
   keywords: [
-    'personal data consent',
-    'privacy compliance',
-    'non-profit',
-    'social welfare',
-    'PIPA',
     '개인정보보호법',
     '동의서',
     '복지급여',
+    '개인정보 동의서',
+    '비영리',
+    '사회복지',
   ],
-  authors: [{ name: 'ConSentient Team' }],
+  authors: [{ name: '개동췤 팀' }],
   openGraph: {
-    title: 'ConSentient — AI-Powered Privacy Compliance OS',
-    description: 'Multi-agent AI compliance OS for social welfare non-profits.',
+    title: '개동췤 — 비영리 개인정보 컴플라이언스',
+    description: 'AI 멀티에이전트 기반 비영리 사회복지 개인정보 컴플라이언스 도구.',
     type: 'website',
   },
 };

@@ -101,7 +101,7 @@ export default function HomePage() {
       {/* ── Footer ── */}
       <footer className="border-t border-white/5 py-6 text-center no-print">
         <p className="text-xs text-slate-600">
-          ConSentient © 2024 · AI-generated drafts require legal review before official use ·{' '}
+          개동췤 © 2024 · AI 생성 초안은 실제 사용 전 법무 검토가 필요합니다 ·{' '}
           <span className="text-slate-500">개인정보보호법 준수 지원 도구</span>
         </p>
       </footer>

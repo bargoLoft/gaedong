@@ -27,7 +27,7 @@ export default function ExportActions({ clauses, fileName }: ExportActionsProps)
       ]),
       '',
       '══════════════════════════════════════════',
-      '이 문서는 ConSentient AI에 의해 생성된 초안입니다.',
+      '이 문서는 개동췤 AI에 의해 생성된 초안입니다.',
       '실제 사용 전 법무 담당자의 검토가 필요합니다.',
     ];
     return lines.join('\n');

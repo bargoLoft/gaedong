@@ -17,7 +17,7 @@ export default function Header() {
             </div>
             <div>
               <h1 className="text-lg font-bold text-white tracking-tight">
-                Con<span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-emerald-400">Sentient</span>
+                개동<span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-emerald-400">췤</span>
               </h1>
               <p className="text-[10px] text-slate-400 leading-none font-medium tracking-wide">
                 비영리 개인정보 컴플라이언스
