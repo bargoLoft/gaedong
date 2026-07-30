@@ -8,17 +8,17 @@ import AgentCard from './AgentCard';
 interface AgentPipelineProps {
   agents: AgentInfo[];
   isComplete: boolean;
-  onStart: () => void;
+  onStart?: () => void;
   fileName: string;
 }
 
 export default function AgentPipeline({ agents, onStart, fileName }: AgentPipelineProps) {
-  // Auto-start on mount
   useEffect(() => {
-    const timer = setTimeout(onStart, 600);
-    return () => clearTimeout(timer);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+    if (onStart) {
+      const timer = setTimeout(onStart, 600);
+      return () => clearTimeout(timer);
+    }
+  }, [onStart]);
 
   const completedCount = agents.filter(a => a.status === 'completed').length;
   const totalCount = agents.length;

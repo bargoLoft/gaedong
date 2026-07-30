@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import { RotateCcw } from 'lucide-react';
 
 import Header from '@/components/Header';
@@ -17,22 +17,83 @@ export default function HomePage() {
   const [currentStep, setCurrentStep] = useState<AppStep>(1);
   const [highlightedClauseId, setHighlightedClauseId] = useState<string | null>(null);
 
-  const handleSimulationComplete = useCallback(() => {
-    // Brief delay so last agent "completed" state is visible
-    setTimeout(() => setCurrentStep(3), 400);
-  }, []);
+  const [dataset, setDataset] = useState(MOCK_DATASET);
+  const [apiError, setApiError] = useState<string | null>(null);
 
-  const { agents, isComplete, startSimulation, reset } = useAgentSimulation(handleSimulationComplete);
+  const { agents, isComplete, setAgentStatus, reset } = useAgentSimulation();
 
-  const handleStartAnalysis = useCallback(() => {
+  const handleStartAnalysis = useCallback(async (useSample: boolean, file: File | null) => {
     reset();
     setCurrentStep(2);
-  }, [reset]);
+    setApiError(null);
+
+    const fileName = useSample ? '2024_복지급여_신청서_김복순.pdf (샘플)' : (file?.name || '문서');
+
+    try {
+      // ── Step 1: Extract Agent ──
+      setAgentStatus('extract', 'running');
+      const formData = new FormData();
+      if (file) formData.append('file', file);
+      formData.append('useSample', String(useSample));
+      formData.append('step', 'extract');
+
+      const res1 = await fetch('/api/analyze', { method: 'POST', body: formData });
+      const data1 = await res1.json();
+      if (!data1.success) throw new Error(data1.error || '추출 에이전트 분석 중 오류가 발생했습니다.');
+
+      setAgentStatus('extract', 'completed');
+
+      // ── Step 2: Generation Agent ──
+      setAgentStatus('generation', 'running');
+      const res2 = await fetch('/api/analyze', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ step: 'generate', extractText: data1.extractText }),
+      });
+      const data2 = await res2.json();
+      if (!data2.success) throw new Error(data2.error || '생성 에이전트 분석 중 오류가 발생했습니다.');
+
+      setAgentStatus('generation', 'completed');
+
+      // ── Step 3: Audit Agent ──
+      setAgentStatus('audit', 'running');
+      const res3 = await fetch('/api/analyze', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          step: 'audit',
+          extractText: data1.extractText,
+          generationText: data2.generationText,
+        }),
+      });
+      const data3 = await res3.json();
+      if (!data3.success) throw new Error(data3.error || '감사 에이전트 분석 중 오류가 발생했습니다.');
+
+      setAgentStatus('audit', 'completed');
+
+      setDataset({
+        fileName,
+        extractedItems: data1.items || [],
+        consentClauses: data2.clauses || [],
+        riskAlerts: data3.alerts || [],
+        complianceScore: data3.complianceScore || 75,
+      });
+
+      // 3개 에이전트 완료 상태를 0.5초간 보여준 후 대시보드 전환
+      setTimeout(() => setCurrentStep(3), 500);
+
+    } catch (e) {
+      console.error(e);
+      setApiError(e instanceof Error ? e.message : '네트워크 또는 서버 오류가 발생했습니다.');
+    }
+  }, [reset, setAgentStatus]);
 
   const handleReset = useCallback(() => {
     reset();
     setCurrentStep(1);
     setHighlightedClauseId(null);
+    setDataset(MOCK_DATASET);
+    setApiError(null);
   }, [reset]);
 
   const handleHighlight = useCallback((clauseId: string | undefined) => {
@@ -61,13 +122,24 @@ export default function HomePage() {
 
         {/* ── Step 2: Agent Pipeline ── */}
         {currentStep === 2 && (
-          <div className="flex justify-center">
+          <div className="flex flex-col items-center justify-center space-y-4">
             <AgentPipeline
               agents={agents}
               isComplete={isComplete}
-              onStart={startSimulation}
-              fileName={MOCK_DATASET.fileName}
+              fileName={dataset.fileName}
             />
+            {apiError && (
+              <div className="w-full max-w-xl mx-auto p-4 mt-4 rounded-xl border border-red-500/20 bg-red-500/10 text-red-400 text-sm text-center">
+                <p className="font-bold mb-1">🚨 AI 분석 실패</p>
+                <p className="break-words">{apiError}</p>
+                <button 
+                  onClick={handleReset}
+                  className="mt-3 px-4 py-1.5 rounded-full border border-red-500/30 hover:bg-red-500/20 transition-colors"
+                >
+                  돌아가기
+                </button>
+              </div>
+            )}
           </div>
         )}
 
@@ -90,7 +162,7 @@ export default function HomePage() {
             </div>
 
             <Dashboard
-              data={MOCK_DATASET}
+              data={dataset}
               highlightedClauseId={highlightedClauseId}
               onHighlight={handleHighlight}
             />
@@ -101,7 +173,7 @@ export default function HomePage() {
       {/* ── Footer ── */}
       <footer className="border-t border-white/5 py-6 text-center no-print">
         <p className="text-xs text-slate-600">
-          개동췤 © 2024 · AI 생성 초안은 실제 사용 전 법무 검토가 필요합니다 ·{' '}
+          개동췤 © 2026 · AI 생성 초안은 실제 사용 전 법무 검토가 필요합니다 ·{' '}
           <span className="text-slate-500">개인정보보호법 준수 지원 도구</span>
         </p>
       </footer>

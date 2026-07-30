@@ -8,7 +8,9 @@ interface UseAgentSimulationReturn {
   agents: AgentInfo[];
   isRunning: boolean;
   isComplete: boolean;
+  setAgentStatus: (id: string, status: AgentStatusType) => void;
   startSimulation: () => void;
+  completeAll: () => void;
   reset: () => void;
 }
 
@@ -62,9 +64,18 @@ export function useAgentSimulation(onComplete?: () => void): UseAgentSimulationR
       timeoutsRef.current.push(completeTimeout);
 
       // Small gap between agents
-      cumulativeDelay += 400;
+      cumulativeDelay += 800;
     });
   }, [isRunning, setAgentStatus, onComplete]);
+
+  const completeAll = useCallback(() => {
+    timeoutsRef.current.forEach(clearTimeout);
+    timeoutsRef.current = [];
+    setAgents(AGENTS.map(a => ({ ...a, status: 'completed' })));
+    setIsRunning(false);
+    setIsComplete(true);
+    onComplete?.();
+  }, [onComplete]);
 
   const reset = useCallback(() => {
     timeoutsRef.current.forEach(clearTimeout);
@@ -74,5 +85,5 @@ export function useAgentSimulation(onComplete?: () => void): UseAgentSimulationR
     setIsComplete(false);
   }, []);
 
-  return { agents, isRunning, isComplete, startSimulation, reset };
+  return { agents, isRunning, isComplete, setAgentStatus, startSimulation, completeAll, reset };
 }

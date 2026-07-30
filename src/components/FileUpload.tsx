@@ -4,7 +4,7 @@ import { useState, useRef, useCallback } from 'react';
 import { Upload, FileText, Sparkles, ArrowRight, X, CheckCircle2 } from 'lucide-react';
 
 interface FileUploadProps {
-  onStart: (useSample: boolean) => void;
+  onStart: (useSample: boolean, file: File | null) => void;
 }
 
 export default function FileUpload({ onStart }: FileUploadProps) {
@@ -165,7 +165,7 @@ export default function FileUpload({ onStart }: FileUploadProps) {
       {isReady && (
         <button
           id="start-analysis-btn"
-          onClick={() => onStart(usingSample)}
+          onClick={() => onStart(usingSample, uploadedFile)}
           className="btn-primary w-full flex items-center justify-center gap-3 py-4 rounded-2xl
                      text-white font-semibold text-base shadow-xl"
         >
@@ -180,8 +180,8 @@ export default function FileUpload({ onStart }: FileUploadProps) {
       {/* Stats row */}
       <div className="grid grid-cols-3 gap-3 pt-2">
         {[
-          { label: '처리 시간', value: '< 8초', icon: '⚡' },
-          { label: '법적 조항 검토', value: '4가지', icon: '⚖️' },
+          { label: '처리 시간', value: '< 30초', icon: '⚡' },
+          { label: '법적 조항 검토', value: '개인정보보호법', icon: '⚖️' },
           { label: '위험 항목 감사', value: '자동', icon: '🛡️' },
         ].map((stat) => (
           <div key={stat.label} className="glass-card p-3 text-center">
@@ -190,6 +190,39 @@ export default function FileUpload({ onStart }: FileUploadProps) {
             <div className="text-[10px] text-slate-500">{stat.label}</div>
           </div>
         ))}
+      </div>
+
+      {/* 최근 개정 개인정보보호법 업데이트 */}
+      <div className="rounded-xl border border-indigo-500/15 bg-indigo-500/5 p-3.5 space-y-2">
+        <div className="flex items-center gap-2 text-[11px] font-semibold text-indigo-300">
+          <span className="text-sm">📋</span>
+          최근 개인정보보호법 주요 개정 사항
+          <span className="ml-auto text-[10px] font-normal text-slate-500">개인정보보호위원회</span>
+        </div>
+        <div className="space-y-1.5">
+          {[
+            { date: '2024.03', tag: '시행', text: 'AI 자동화 결정에 대한 거부·설명 요구권 구체화' },
+            { date: '2025.01', tag: '시행', text: '개인정보 전송요구권 본격 시행 — 정보주체의 데이터 이동권 강화' },
+            { date: '2025.01', tag: '시행', text: '온·오프라인 규제 일원화 — 오프라인 기관도 온라인 수준 보호 의무 적용' },
+            { date: '2025.01', tag: '시행', text: '이동형 영상기기(드론·자율주행) 촬영 고지 의무 신설' },
+            { date: '2025.10', tag: '시행', text: '국내대리인 우선 지정 의무 및 안전성 확보조치 기준 개정 시행' },
+            { date: '2026.03', tag: '공포', text: '개정법 공포 — 대표자 책임 명확화 및 CPO 역할 강화, 유출 가능성 통지제 도입, 반복·중대 침해 과징금 강화' },
+            { date: '2026.09', tag: '시행예정', text: 'ISMS-P 인증 의무화 포함 개정 개인정보보호법 본격 시행' },
+            { date: '2027.07', tag: '예정', text: 'ISMS-P 인증 의무화 규정 시행 (예산 확보 소요 기간 반영)' },
+          ].map((item) => (
+            <div key={item.text} className="flex items-start gap-2 text-[11px]">
+              <span className="flex-shrink-0 text-slate-500 w-14 pt-px">{item.date}</span>
+              <span className={`flex-shrink-0 px-1.5 py-px rounded text-[9px] font-bold mt-px
+                ${item.tag === '예정' ? 'bg-amber-500/15 text-amber-400'
+                  : item.tag === '공포' ? 'bg-indigo-500/15 text-indigo-400'
+                  : item.tag === '시행예정' ? 'bg-sky-500/15 text-sky-400'
+                  : 'bg-emerald-500/15 text-emerald-400'}`}>
+                {item.tag}
+              </span>
+              <span className="text-slate-400 leading-snug">{item.text}</span>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );
