@@ -33,6 +33,10 @@ export default function Header() {
 
           {/* Status badge */}
           <div className="flex items-center gap-2">
+            <div className="hidden sm:flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-[11px] text-indigo-300 font-medium">
+              <Sparkles className="w-3 h-3 text-indigo-400" />
+              <span>Gemini 3.6 Flash</span>
+            </div>
             <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-xs text-emerald-400 font-medium">
               <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
               정상 운영 중
